@@ -1,4 +1,4 @@
-name: JMeter Test
+name: JMeter Test ubuntu docker
 
 on:
   workflow_dispatch:
