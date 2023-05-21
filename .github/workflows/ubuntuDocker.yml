@@ -1,7 +1,8 @@
-name: JMeter Test ubuntu docker
+name: JMeter Test ub docker
 
 on:
   workflow_dispatch:
+  
   push:
     branches: [main]
   schedule:
@@ -13,12 +14,12 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v1
 
       - name: Set up Java
         uses: actions/setup-java@v2
         with:
-          java-version: 11  # Adjust to your Java version
+          java-version: 8  # Adjust to your Java version
 
       - name: Download and Install JMeter
         run: |
@@ -27,7 +28,7 @@ jobs:
           rm apache-jmeter-5.4.1.tgz
 
       - name: Set up Docker
-        uses: docker/setup-docker@v1
+        uses: docker/build-push-action@v2
 
       - name: Build Docker image
         run: |
@@ -36,4 +37,4 @@ jobs:
       - name: Run JMeter test in Docker
         run: |
           docker run --rm -v $PWD:/tests my-jmeter-image \
-          ./apache-jmeter-5.4.1/bin/jmeter -J-Xms2g -J-Xmx16g -n -t /tests/test.jmx
+          ./apache-jmeter-5.4.1/bin/jmeter -J-Xms2g -J-Xmx16g -n -t test.jmx
