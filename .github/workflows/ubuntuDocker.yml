@@ -27,9 +27,7 @@ jobs:
           rm apache-jmeter-5.4.1.tgz
 
       - name: Set up Docker
-        run: |
-          sudo apt-get install docker.io
-          sudo usermod -aG docker $USER
+        uses: docker/setup-buildx-action@v1
 
       - name: Build and Run JMeter test in Docker
         run: |
