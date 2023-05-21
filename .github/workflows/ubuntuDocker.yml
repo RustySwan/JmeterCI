@@ -1,8 +1,7 @@
-name: JMeter Test ub docker
+name: docker
 
 on:
   workflow_dispatch:
-  
   push:
     branches: [main]
   schedule:
@@ -14,7 +13,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
 
       - name: Set up Java
         uses: actions/setup-java@v1
@@ -28,13 +27,12 @@ jobs:
           rm apache-jmeter-5.4.1.tgz
 
       - name: Set up Docker
-        uses: docker/build-push-action@v2
+        run: |
+          sudo apt-get install docker.io
+          sudo usermod -aG docker $USER
 
-      - name: Build Docker image
+      - name: Build and Run JMeter test in Docker
         run: |
           docker build -t my-jmeter-image .
-      
-      - name: Run JMeter test in Docker
-        run: |
           docker run --rm -v $PWD:/tests my-jmeter-image \
           ./apache-jmeter-5.4.1/bin/jmeter -J-Xms2g -J-Xmx16g -n -t test.jmx
