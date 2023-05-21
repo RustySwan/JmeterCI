@@ -1,9 +1,13 @@
 name: JMeter Test
 
 on:
+  workflow_dispatch:
+
   push:
-    branches:
-      - main  # Adjust to your branch name
+    branches: [main]
+    
+  schedule:
+    - cron: '0 9 * * *'
 
 jobs:
   performance_test:
