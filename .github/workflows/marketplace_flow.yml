@@ -1,4 +1,4 @@
-name: JMeter Test Execution
+name: JMeter Test 3rd party Workflows Execution
 
 on:
   workflow_dispatch:
@@ -13,7 +13,7 @@ on:
     - cron: '0 9 * * *'
 
 jobs:
-  performance_test:
+  api_test_3rd_party:
     runs-on: ubuntu-latest # Use the latest version of Windows runner
 
     steps:
@@ -22,6 +22,12 @@ jobs:
 
       - name: Create reports directory
         run: mkdir reports
+
+      - name: Setup build cache
+        uses: actions/cache@v3
+        with:
+          key: ${{ runner.os }}-build
+          path: __cache
     
       - name: JMeter Test
         uses: QAInsights/PerfAction@v5.6.2
@@ -42,3 +48,10 @@ jobs:
           name: jmeter-html-reports
           path: reports
           if-no-files-found: error
+
+      - name: Report Preview
+        id: html_preview
+        uses: pavi2410/html-preview-action@v4
+        with:
+          html_file: '__cache/reports/html/index.html'
+          job_summary: true

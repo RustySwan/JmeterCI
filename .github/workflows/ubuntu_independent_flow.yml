@@ -1,4 +1,4 @@
-name: JMeter Test Execution
+name: JMeter Standalone Test Execution
 
 on:
   workflow_dispatch:
@@ -13,7 +13,7 @@ on:
     - cron: '0 9 * * *'
 
 jobs:
-  api_test:
+  api_test_standalone:
     runs-on: ubuntu-latest  # Use the latest version of Ubuntu runner
 
     steps:
