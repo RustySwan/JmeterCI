@@ -42,3 +42,10 @@ jobs:
           name: jmeter-html-reports
           path: reports
           if-no-files-found: error
+
+      - name: Report Preview
+        id: html_preview
+        uses: pavi2410/html-preview-action@v4
+        with:
+          html_file: './reports/html/index.html'
+          job_summary: true
