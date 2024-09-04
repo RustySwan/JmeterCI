@@ -7,14 +7,11 @@ on:
     branches: [main]
   
   pull_request:
-      types: [opened, reopened, synchronize, edited, ready_for_review]
-
-  schedule:
-    - cron: '0 9 * * *'
+    types: [opened, reopened, synchronize, edited, ready_for_review]
 
 jobs:
   api_test_3rd_party:
-    runs-on: ubuntu-latest # Use the latest version of Windows runner
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
